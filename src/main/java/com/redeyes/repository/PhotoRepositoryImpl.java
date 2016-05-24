@@ -8,10 +8,13 @@ import java.util.List;
 
 @Repository
 public class PhotoRepositoryImpl implements PhotoRepository {
+    private static int ID = 0;
     private List<Photo> photos;
+
     @Override
 
     public void add(Photo photo) {
+        photo.setId(ID++);
         photos.add(photo);
     }
 
@@ -33,6 +36,16 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 
     @Override
     public void init() {
+        ID = 0;
         photos = new LinkedList<>();
+    }
+
+    @Override
+    public List<Integer> getIds() {
+        List<Integer> counts = new LinkedList<>();
+        for (int i = 0; i < photos.size(); i++) {
+            counts.add(i);
+        }
+        return counts;
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Photo Gallery</title>
     <link rel="stylesheet"
           th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"
           href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
@@ -14,6 +14,9 @@
             top: 50%;
             left: 50%;
             margin: -125px 0 0 -125px;
+        }
+        img {
+            margin: 5px;
         }
     </style>
 
@@ -30,24 +33,35 @@
 <div th:if="${main}">
     <form id="form" action="/photo" method="post" class="form-horizontal">
         <table>
-            <tr><td><p>Type your pic folder</p></td></tr>
+            <tr>
+                <td><p class="text-center">Type your pic folder</p></td>
+            </tr>
             <tr>
                 <td><input type="text" id="path" name="path" class="form-control"/></td>
             </tr>
-            <tr><td><p>and create your gallery</p></td></tr>
-            <tr><td>
-                    <button type="submit" id="create" class="btn btn-info">Create gallery</button>
-            </td></tr>
+            <tr>
+                <td><p class="text-center">and create your gallery</p></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" id="create" class="btn btn-info center-block">Create gallery</button>
+                </td>
+            </tr>
         </table>
     </form>
 </div>
-<div th:if="${post}">
-    <div th:each="count : ${counts}">
-        <div>
-            <img th:height="${height}" th:width="${width}"
-                 th:src="@{'/photo/image/'+${count}}"/>
-        </div>
-    </div>
+<div th:if="${post}" class="center-block text-center">
+    <p class="text-center">
+    <h3>The Photos has been uploaded!</h3></p>
+
+    <span th:each="id : ${Ids}">
+        <div th:if="${id}%${row}==0"></div>
+
+        <img th:height="${height}" th:width="${width}"
+             th:src="@{'/photo/image/'+${id}}" />
+    </span>
+    <p class="text-center">
+    <h3>Number of uploaded photos: <span th:text="${size}"></span></h3></p>
 </div>
 </body>
 </html>

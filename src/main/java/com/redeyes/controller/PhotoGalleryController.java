@@ -50,11 +50,10 @@ public class PhotoGalleryController {
         return model;
     }
 
-    @RequestMapping(value = "/row/{rows}", method = RequestMethod.GET)
-    public ModelAndView rows(@PathVariable int rows) {
+    @RequestMapping(value = "/row/{row}", method = RequestMethod.GET)
+    public ModelAndView rows(@PathVariable int row) {
         ModelAndView model = getModelAndView();
-        model.addObject("rows", rows);
-        model.addObject("row", true);
+        model.addObject("row", row);
         addDefaultPhotoSize(model);
         return model;
     }
@@ -63,13 +62,12 @@ public class PhotoGalleryController {
     public ModelAndView wh(@PathVariable String wh) {
         ModelAndView model = getModelAndView();
         String[] size = wh.split("x");
-        model.addObject("wh", true);
         model.addObject("width", size[0]);
         model.addObject("height", size[1]);
         return model;
     }
 
-    @RequestMapping(value = "/image/{num:\\d}", method = RequestMethod.GET)
+    @RequestMapping(value = "/image/{num:\\d+}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> image(@PathVariable int num) throws IOException {
         byte[] img = service.getPhoto(num);
 
@@ -82,7 +80,9 @@ public class PhotoGalleryController {
     private ModelAndView getModelAndView() {
         ModelAndView modelAndView = new ModelAndView("photo");
         modelAndView.addObject("post", true);
-        modelAndView.addObject("counts", service.getSize());
+        modelAndView.addObject("Ids", service.getIds());
+        modelAndView.addObject("size", service.getSize());
+        modelAndView.addObject("row", 4);
         return modelAndView;
     }
 

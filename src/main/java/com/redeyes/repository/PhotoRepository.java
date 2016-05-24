@@ -14,4 +14,6 @@ public interface PhotoRepository {
     List<Photo> getAll();
 
     void init();
+
+    List<Integer> getIds();
 }

@@ -11,7 +11,6 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -42,11 +41,12 @@ public class PhotoGalleryServiceImpl implements PhotoGalleryService {
     }
 
     @Override
-    public List<Integer> getSize() {
-        List<Integer> counts = new LinkedList<>();
-        for (int i = 0; i < repository.size(); i++) {
-            counts.add(i);
-        }
-        return counts;
+    public int getSize() {
+        return repository.size();
+    }
+
+    @Override
+    public List<Integer> getIds() {
+        return repository.getIds();
     }
 }

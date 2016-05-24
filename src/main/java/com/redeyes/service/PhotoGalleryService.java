@@ -8,5 +8,8 @@ public interface PhotoGalleryService {
 
     byte[] getPhoto(int id);
 
-    List<Integer> getSize();
+    int getSize();
+
+    List<Integer> getIds();
+
 }
