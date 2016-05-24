@@ -4,7 +4,11 @@
 package com.redeyes.service;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,13 +30,13 @@ final class DirectoryScanner {
      * Searches for files having the specified extension in the specified
      * directory and all of its subdirectories and returns a {@code Collection}
      * of the found files paths.
-     *
+     * @param directory Path to files.
      * @return a list of full paths to the files matching the input criteria
      *
      * @throws IOException
      *         if I/O exception has happened during the directory scan
      */
-    public static List<Path> getFiles(String directory) throws IOException {
+    public static List<Path> getFiles(final String directory) throws IOException {
         Path baseDir = Paths.get(directory);
 
         if (!Files.exists(baseDir) || !Files.isDirectory(baseDir)) {

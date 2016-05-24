@@ -11,8 +11,6 @@ public interface PhotoRepository {
 
     int size();
 
-    List<Photo> getAll();
-
     void init();
 
     List<Integer> getIds();

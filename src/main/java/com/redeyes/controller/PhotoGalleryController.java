@@ -18,17 +18,19 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/photo")
 public class PhotoGalleryController {
+    private static final int DEFAULT_ROWS = 4;
+    private static final int DEFAULT_SIZE = 200;
 
     @Autowired
     private PhotoGalleryService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView home() {
+    public final ModelAndView home() {
         return new ModelAndView("photo", "main", true);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView post(@RequestParam String path) throws IOException {
+    public final ModelAndView post(@RequestParam final String path) throws IOException {
         service.savePhoto(path);
         ModelAndView model = getModelAndView();
         addDefaultPhotoSize(model);
@@ -36,7 +38,7 @@ public class PhotoGalleryController {
     }
 
     @RequestMapping(value = "/blackbackground", method = RequestMethod.GET)
-    public ModelAndView black() {
+    public final ModelAndView black() {
         ModelAndView model = getModelAndView();
         model.addObject("black", true);
         addDefaultPhotoSize(model);
@@ -44,14 +46,14 @@ public class PhotoGalleryController {
     }
 
     @RequestMapping(value = "/original", method = RequestMethod.GET)
-    public ModelAndView original() {
+    public final ModelAndView original() {
         ModelAndView model = getModelAndView();
         model.addObject("original", true);
         return model;
     }
 
     @RequestMapping(value = "/row/{row}", method = RequestMethod.GET)
-    public ModelAndView rows(@PathVariable int row) {
+    public final ModelAndView rows(@PathVariable final int row) {
         ModelAndView model = getModelAndView();
         model.addObject("row", row);
         addDefaultPhotoSize(model);
@@ -59,7 +61,7 @@ public class PhotoGalleryController {
     }
 
     @RequestMapping(value = "/wh/{wh:\\d{3}x\\d{3}}", method = RequestMethod.GET)
-    public ModelAndView wh(@PathVariable String wh) {
+    public final ModelAndView wh(@PathVariable final String wh) {
         ModelAndView model = getModelAndView();
         String[] size = wh.split("x");
         model.addObject("width", size[0]);
@@ -68,7 +70,7 @@ public class PhotoGalleryController {
     }
 
     @RequestMapping(value = "/image/{num:\\d+}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> image(@PathVariable int num) throws IOException {
+    public final ResponseEntity<InputStreamResource> image(@PathVariable final int num) throws IOException {
         byte[] img = service.getPhoto(num);
 
         return ResponseEntity.ok()
@@ -82,12 +84,12 @@ public class PhotoGalleryController {
         modelAndView.addObject("post", true);
         modelAndView.addObject("Ids", service.getIds());
         modelAndView.addObject("size", service.getSize());
-        modelAndView.addObject("row", 4);
+        modelAndView.addObject("row", DEFAULT_ROWS);
         return modelAndView;
     }
 
-    private void addDefaultPhotoSize(ModelAndView model) {
-        model.addObject("width", 200);
-        model.addObject("height", 200);
+    private void addDefaultPhotoSize(final ModelAndView model) {
+        model.addObject("width", DEFAULT_SIZE);
+        model.addObject("height", DEFAULT_SIZE);
     }
 }

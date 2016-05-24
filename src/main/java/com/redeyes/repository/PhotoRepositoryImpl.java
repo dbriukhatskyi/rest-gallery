@@ -8,40 +8,34 @@ import java.util.List;
 
 @Repository
 public class PhotoRepositoryImpl implements PhotoRepository {
-    private static int ID = 0;
+    private int photoId = 0;
     private List<Photo> photos;
 
     @Override
-
-    public void add(Photo photo) {
-        photo.setId(ID++);
+    public final void add(final Photo photo) {
+        photo.setId(photoId++);
         photos.add(photo);
     }
 
     @Override
-    public byte[] get(int id) {
+    public final byte[] get(final int id) {
         return photos.stream()
                 .filter(photo -> photo.getId() == id).findFirst().get().getPhoto();
     }
 
     @Override
-    public int size() {
+    public final int size() {
         return photos.size();
     }
 
     @Override
-    public List<Photo> getAll() {
-        return photos;
-    }
-
-    @Override
-    public void init() {
-        ID = 0;
+    public final void init() {
+        photoId = 0;
         photos = new LinkedList<>();
     }
 
     @Override
-    public List<Integer> getIds() {
+    public final List<Integer> getIds() {
         List<Integer> counts = new LinkedList<>();
         for (int i = 0; i < photos.size(); i++) {
             counts.add(i);

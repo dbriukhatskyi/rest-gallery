@@ -4,19 +4,19 @@ public class Photo {
     private int id;
     private byte[] photo;
 
-    public Photo(byte[] photo) {
+    public Photo(final byte[] photo) {
         this.photo = photo;
     }
 
-    public byte[] getPhoto() {
+    public final byte[] getPhoto() {
         return photo;
     }
 
-    public int getId() {
+    public final int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public final void setId(final int id) {
         this.id = id;
     }
 }
