@@ -1,9 +1,12 @@
 package com.redeyes.service;
 
-import com.redeyes.model.Photo;
-
-import java.util.Collection;
+import java.io.IOException;
+import java.util.List;
 
 public interface PhotoGalleryService {
-    public Collection<Photo> getPhotosFromDir(String dirPath);
+    void savePhoto(String dir) throws IOException;
+
+    byte[] getPhoto(int id);
+
+    List<Integer> getSize();
 }

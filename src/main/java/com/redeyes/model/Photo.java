@@ -1,34 +1,24 @@
 package com.redeyes.model;
 
-import java.io.Serializable;
-
-public class Photo implements Serializable {
+public class Photo {
     private static int COUNT = 0;
     private int id;
-    private String data = "Photo Name";
+    private byte[] photo;
 
-    public Photo() {
-        id = ++COUNT;
+    public Photo(byte[] photo) {
+        id = COUNT++;
+        this.photo = photo;
     }
 
-    public Photo(int id, String data) {
-        this.id = id;
-        this.data = data;
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 }
