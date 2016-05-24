@@ -39,7 +39,7 @@ final class DirectoryScanner {
     public static List<Path> getFiles(final String directory) throws IOException {
         Path baseDir = Paths.get(directory);
 
-        if (!Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
+        if (directory == null || !Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
             return Collections.emptyList();
         }
 
