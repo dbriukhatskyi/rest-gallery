@@ -15,11 +15,11 @@
             left: 50%;
             margin: -125px 0 0 -125px;
         }
+
         img {
             margin: 5px;
         }
     </style>
-
 </head>
 <body class="blackback">
 <div th:if="${black}">
@@ -50,7 +50,7 @@
         </table>
     </form>
 </div>
-<div th:if="${post}" class="center-block text-center">
+<div th:if="${gallery}" class="center-block text-center">
     <p class="text-center">
     <h3>The Photos has been uploaded!</h3></p>
 
@@ -58,7 +58,7 @@
         <div th:if="${id}%${row}==0"></div>
 
         <img th:height="${height}" th:width="${width}"
-             th:src="@{'/photo/image/'+${id}}" />
+             th:src="@{'/photo/image/'+${id}}"/>
     </span>
     <p class="text-center">
     <h3>Number of uploaded photos: <span th:text="${size}"></span></h3></p>

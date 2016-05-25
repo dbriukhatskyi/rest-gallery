@@ -151,7 +151,7 @@ public class PhotoGalleryController {
      */
     private ModelAndView getModelAndView() {
         ModelAndView modelAndView = new ModelAndView("photo");
-        modelAndView.addObject("post", true);
+        modelAndView.addObject("gallery", true);
         modelAndView.addObject("Ids", service.getIds());
         modelAndView.addObject("size", service.getSize());
         modelAndView.addObject("row", DEFAULT_ROWS);
