@@ -1,33 +1,43 @@
 package com.redeyes.service;
 
-import com.redeyes.model.Photo;
-import com.redeyes.repository.PhotoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.redeyes.repository.PhotoRepository;
+
 @Service
 public class PhotoGalleryServiceImpl implements PhotoGalleryService {
+
+    private static final int BUF_SIZE = 4096;
 
     @Autowired
     private PhotoRepository repository;
 
     @Override
-    public final void savePhoto(final String dirPath) throws IOException {
+    public final void savePhotosFromDir(final String dirPath) throws IOException {
         List<Path> files = DirectoryScanner.getFiles(dirPath);
         repository.init();
+        byte[] buffer = new byte[BUF_SIZE];
+
         for (Path file : files) {
-            BufferedInputStream photo = new BufferedInputStream(new FileInputStream(file.toFile().toString())
-            );
-            byte[] bytes = new byte[photo.available()];
-            photo.read(bytes);
-            photo.close();
-            repository.add(new Photo(bytes));
+            try (InputStream photo = new BufferedInputStream(Files.newInputStream(file), BUF_SIZE)) {
+                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+
+                while(photo.available() > 0) {
+                    int size = photo.read(buffer);
+                    byteStream.write(buffer, 0, size);
+                }
+
+                repository.add(byteStream.toByteArray());
+            }
         }
     }
 

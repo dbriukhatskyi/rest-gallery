@@ -1,26 +1,27 @@
 package com.redeyes.repository;
 
-import com.redeyes.model.Photo;
-import org.springframework.stereotype.Repository;
-
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 @Repository
 public class PhotoRepositoryImpl implements PhotoRepository {
-    private int photoId = 0;
-    private List<Photo> photos;
+
+    private List<byte[]> photos;
 
     @Override
-    public final void add(final Photo photo) {
-        photo.setId(photoId++);
+    public final void add(final byte[] photo) {
         photos.add(photo);
     }
 
     @Override
     public final byte[] get(final int id) {
-        return photos.stream()
-                .filter(photo -> photo.getId() == id).findFirst().get().getPhoto();
+        if (id < photos.size() && id >= 0) {
+            return photos.get(id);
+        }
+        return new byte[]{ };
     }
 
     @Override
@@ -30,8 +31,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 
     @Override
     public final void init() {
-        photoId = 0;
-        photos = new LinkedList<>();
+        photos = new ArrayList<>();
     }
 
     @Override

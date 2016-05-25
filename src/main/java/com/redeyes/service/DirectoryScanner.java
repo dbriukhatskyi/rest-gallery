@@ -23,6 +23,8 @@ import java.util.List;
  */
 final class DirectoryScanner {
 
+    private static final String IMG_FILE_EXT = ".png";
+
     /** Ensure non-instantiability */
     private DirectoryScanner() { }
 
@@ -30,7 +32,10 @@ final class DirectoryScanner {
      * Searches for files having the specified extension in the specified
      * directory and all of its subdirectories and returns a {@code Collection}
      * of the found files paths.
-     * @param directory Path to files.
+     *
+     * @param directory
+     *        path to directory to scan
+     *
      * @return a list of full paths to the files matching the input criteria
      *
      * @throws IOException
@@ -50,7 +55,7 @@ final class DirectoryScanner {
             public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
                     throws IOException {
 
-                if (file.toString().endsWith(".png")) {
+                if (file.toString().endsWith(IMG_FILE_EXT)) {
                     found.add(file);
                 }
 

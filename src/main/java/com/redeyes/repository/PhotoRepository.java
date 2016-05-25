@@ -1,11 +1,9 @@
 package com.redeyes.repository;
 
-import com.redeyes.model.Photo;
-
 import java.util.List;
 
 public interface PhotoRepository {
-    void add(Photo photo);
+    void add(byte[] photo);
 
     byte[] get(int id);
 
