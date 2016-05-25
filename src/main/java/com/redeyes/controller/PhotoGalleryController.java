@@ -1,8 +1,8 @@
 package com.redeyes.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-
+import com.redeyes.service.PhotoGalleryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.redeyes.service.PhotoGalleryService;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/photo")
 public class PhotoGalleryController {
+    public static final Logger LOG = LoggerFactory.getLogger(PhotoGalleryController.class);
     private static final int DEFAULT_ROWS = 4;
     private static final int DEFAULT_SIZE = 200;
 
@@ -27,11 +29,13 @@ public class PhotoGalleryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public final ModelAndView home() {
+        LOG.info("Returned main view.");
         return new ModelAndView("photo", "main", true);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public final ModelAndView post(@RequestParam final String path) throws IOException {
+    public final ModelAndView post(@RequestParam final String path) {
+        LOG.info("Returned photo view.");
         service.savePhotosFromDir(path);
         ModelAndView model = getModelAndView();
         addDefaultPhotoSize(model);
@@ -40,6 +44,7 @@ public class PhotoGalleryController {
 
     @RequestMapping(value = "/blackbackground", method = RequestMethod.GET)
     public final ModelAndView black() {
+        LOG.info("Returned photo view with black background.");
         ModelAndView model = getModelAndView();
         model.addObject("black", true);
         addDefaultPhotoSize(model);
@@ -48,6 +53,7 @@ public class PhotoGalleryController {
 
     @RequestMapping(value = "/original", method = RequestMethod.GET)
     public final ModelAndView original() {
+        LOG.info("Returned photo view with original photo size.");
         ModelAndView model = getModelAndView();
         model.addObject("original", true);
         return model;
@@ -55,6 +61,7 @@ public class PhotoGalleryController {
 
     @RequestMapping(value = "/row/{row}", method = RequestMethod.GET)
     public final ModelAndView rows(@PathVariable final int row) {
+        LOG.info("Returned photo view {} in a row.", row);
         ModelAndView model = getModelAndView();
         model.addObject("row", row);
         addDefaultPhotoSize(model);
@@ -63,6 +70,7 @@ public class PhotoGalleryController {
 
     @RequestMapping(value = "/wh/{wh:\\d{3}x\\d{3}}", method = RequestMethod.GET)
     public final ModelAndView wh(@PathVariable final String wh) {
+        LOG.info("Returned photo view with photo size: {}.", wh);
         ModelAndView model = getModelAndView();
         String[] size = wh.split("x");
         model.addObject("width", size[0]);

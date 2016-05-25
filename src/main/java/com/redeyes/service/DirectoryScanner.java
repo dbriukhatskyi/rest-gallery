@@ -3,6 +3,9 @@
  */
 package com.redeyes.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -22,7 +25,7 @@ import java.util.List;
  *
  */
 final class DirectoryScanner {
-
+    private static final Logger LOG = LoggerFactory.getLogger(DirectoryScanner.class);
     private static final String IMG_FILE_EXT = ".png";
 
     /** Ensure non-instantiability */
@@ -38,10 +41,9 @@ final class DirectoryScanner {
      *
      * @return a list of full paths to the files matching the input criteria
      *
-     * @throws IOException
-     *         if I/O exception has happened during the directory scan
      */
-    public static List<Path> getFiles(final String directory) throws IOException {
+    public static List<Path> getFiles(final String directory) {
+        LOG.info("Finding *.png images...");
         Path baseDir = Paths.get(directory);
 
         if (directory == null || !Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
@@ -50,25 +52,23 @@ final class DirectoryScanner {
 
         List<Path> found = new LinkedList<>();
 
-        Files.walkFileTree(baseDir, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
-                    throws IOException {
+        try {
+            Files.walkFileTree(baseDir, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
+                        throws IOException {
 
-                if (file.toString().endsWith(IMG_FILE_EXT)) {
-                    found.add(file);
+                    if (file.toString().endsWith(IMG_FILE_EXT)) {
+                        found.add(file);
+                    }
+
+                    return FileVisitResult.CONTINUE;
                 }
-
-                return FileVisitResult.CONTINUE;
-            }
-        });
+            });
+        } catch (IOException e) {
+            LOG.error("Error reading directory: {}", e.getMessage());
+        }
 
         return found;
     }
-//
-//    public static void main(String[] args) throws IOException {
-//        for (Path path : getFiles("C:\\image")) {
-//            System.out.println(path.toFile().toString());
-//        }
-//    }
 }
