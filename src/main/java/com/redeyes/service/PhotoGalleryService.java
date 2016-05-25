@@ -1,10 +1,9 @@
 package com.redeyes.service;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface PhotoGalleryService {
-    void savePhotosFromDir(String dir) throws IOException;
+    void savePhotosFromDir(String dir);
 
     byte[] getPhoto(int id);
 
