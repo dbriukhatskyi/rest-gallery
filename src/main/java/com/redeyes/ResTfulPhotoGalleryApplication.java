@@ -10,14 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Dmytro Briukhatskyi.
  */
 @SpringBootApplication
-public final class ResTfulPhotoGalleryApplication {
-
-    /**
-     * Ensure non-instantiability.
-     */
-    private ResTfulPhotoGalleryApplication() {
-    }
-
+public class ResTfulPhotoGalleryApplication {
     /**
      * Entry point for application.
      *
