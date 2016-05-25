@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.redeyes.service;
+package com.redeyes.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +22,8 @@ import java.util.List;
  * in the specified local directory.
  *
  * @author Dmytro Briukhatskyi
- *
  */
-final class DirectoryScanner {
+public final class DirectoryScanner {
     /**
      * Logger for scanner.
      */
@@ -34,25 +33,25 @@ final class DirectoryScanner {
      */
     private static final String IMG_FILE_EXT = ".png";
 
-    /** Ensure non-instantiability. */
-    private DirectoryScanner() { }
+    /**
+     * Ensure non-instantiability.
+     */
+    private DirectoryScanner() {
+    }
 
     /**
      * Searches for files having the specified extension in the specified
      * directory and all of its subdirectories and returns a {@code Collection}
      * of the found files paths.
      *
-     * @param directory
-     *        path to directory to scan
-     *
+     * @param directory path to directory to scan
      * @return a list of full paths to the files matching the input criteria
-     *
      */
     public static List<Path> getFiles(final String directory) {
         LOG.info("Finding *.png images...");
         Path baseDir = Paths.get(directory);
 
-        if (directory == null || !Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
+        if (!Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
             return Collections.emptyList();
         }
 

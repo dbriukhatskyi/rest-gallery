@@ -28,6 +28,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 
     @Override
     public final void add(final byte[] photo) {
+        LOG.info("Add photo to cache.");
         photos.add(photo);
     }
 
