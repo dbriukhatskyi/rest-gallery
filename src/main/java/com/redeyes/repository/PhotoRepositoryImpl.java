@@ -8,10 +8,22 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Photo cache storage implements storage interface.
+ *
+ * @author Oleksandr Dres.
+ * @author Dmytro Briukhatskyi.
+ */
 @Repository
 public class PhotoRepositoryImpl implements PhotoRepository {
+    /**
+     * Logger cache storage.
+     */
     private static final Logger LOG = LoggerFactory.getLogger(PhotoRepositoryImpl.class);
 
+    /**
+     * Field contains photos in byte array.
+     */
     private List<byte[]> photos = new ArrayList<>();
 
     @Override

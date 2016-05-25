@@ -14,11 +14,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * A photo gallery service.
+ *
+ * @author Oleksandr Dres.
+ * @author Dmytro Briukhatskyi.
+ */
 @Service
 public class PhotoGalleryServiceImpl implements PhotoGalleryService {
+    /**
+     * Logger for photo service.
+     */
     private static final Logger LOG = LoggerFactory.getLogger(PhotoGalleryServiceImpl.class);
+    /**
+     * Field contains buffer size.
+     */
     private static final int BUF_SIZE = 4096;
 
+    /**
+     * Photo gallery cache storage.
+     */
     @Autowired
     private PhotoRepository repository;
 

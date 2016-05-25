@@ -25,10 +25,16 @@ import java.util.List;
  *
  */
 final class DirectoryScanner {
+    /**
+     * Logger for scanner.
+     */
     private static final Logger LOG = LoggerFactory.getLogger(DirectoryScanner.class);
+    /**
+     * A photo extension.
+     */
     private static final String IMG_FILE_EXT = ".png";
 
-    /** Ensure non-instantiability */
+    /** Ensure non-instantiability. */
     private DirectoryScanner() { }
 
     /**

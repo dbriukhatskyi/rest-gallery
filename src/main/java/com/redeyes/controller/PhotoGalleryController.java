@@ -15,24 +15,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
+/**
+ * Photo gallery controller.
+ *
+ * @author Oleksandr Dres.
+ * @author Dmytro Briukhatskyi.
+ */
 @Controller
 @RequestMapping("/photo")
 public class PhotoGalleryController {
-    public static final Logger LOG = LoggerFactory.getLogger(PhotoGalleryController.class);
+    /**
+     * Logger for photo controller.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(PhotoGalleryController.class);
+    /**
+     * Default rows for photo view.
+     */
     private static final int DEFAULT_ROWS = 4;
+    /**
+     * Default photo size.
+     */
     private static final int DEFAULT_SIZE = 200;
 
+    /**
+     * Photo gallery service.
+     */
     @Autowired
     private PhotoGalleryService service;
 
+    /**
+     * Returned main screen with form.
+     *
+     * @return View with form.
+     */
     @RequestMapping(method = RequestMethod.GET)
     public final ModelAndView home() {
         LOG.info("Returned main view.");
         return new ModelAndView("photo", "main", true);
     }
 
+    /**
+     * Scan directory for photos, adds photos to cache and return view photo gallery.
+     *
+     * @param path Directory with photo in local disk.
+     * @return View with default photo parameters.
+     */
     @RequestMapping(method = RequestMethod.POST)
     public final ModelAndView post(@RequestParam final String path) {
         service.savePhotosFromDir(path);
@@ -42,6 +70,11 @@ public class PhotoGalleryController {
         return model;
     }
 
+    /**
+     * Returned photo gallery with black background.
+     *
+     * @return View with black background.
+     */
     @RequestMapping(value = "/blackbackground", method = RequestMethod.GET)
     public final ModelAndView black() {
         ModelAndView model = getModelAndView();
@@ -51,6 +84,11 @@ public class PhotoGalleryController {
         return model;
     }
 
+    /**
+     * Returned photo gallery with original photo size.
+     *
+     * @return View with original photo size.
+     */
     @RequestMapping(value = "/original", method = RequestMethod.GET)
     public final ModelAndView original() {
         ModelAndView model = getModelAndView();
@@ -59,6 +97,12 @@ public class PhotoGalleryController {
         return model;
     }
 
+    /**
+     * Returned photo gallery with custom rows.
+     *
+     * @param row Custom rows.
+     * @return View with custom rows.
+     */
     @RequestMapping(value = "/row/{row}", method = RequestMethod.GET)
     public final ModelAndView rows(@PathVariable final int row) {
         ModelAndView model = getModelAndView();
@@ -68,6 +112,12 @@ public class PhotoGalleryController {
         return model;
     }
 
+    /**
+     * Returned photo gallery with custom size photo.
+     *
+     * @param wh Custom size YYYxZZZ.
+     * @return View with custom size photo.
+     */
     @RequestMapping(value = "/wh/{wh:\\d{3}x\\d{3}}", method = RequestMethod.GET)
     public final ModelAndView wh(@PathVariable final String wh) {
         ModelAndView model = getModelAndView();
@@ -78,9 +128,15 @@ public class PhotoGalleryController {
         return model;
     }
 
-    @RequestMapping(value = "/image/{num:\\d+}", method = RequestMethod.GET)
-    public final ResponseEntity<InputStreamResource> image(@PathVariable final int num) throws IOException {
-        byte[] img = service.getPhoto(num);
+    /**
+     * Returned photo from server.
+     *
+     * @param id Photo id in cache.
+     * @return PNG photo.
+     */
+    @RequestMapping(value = "/image/{id:\\d+}", method = RequestMethod.GET)
+    public final ResponseEntity<InputStreamResource> image(@PathVariable final int id) {
+        byte[] img = service.getPhoto(id);
 
         return ResponseEntity.ok()
                 .contentLength(img.length)
@@ -88,6 +144,11 @@ public class PhotoGalleryController {
                 .body(new InputStreamResource(new ByteArrayInputStream(img)));
     }
 
+    /**
+     * Returned photo gallery view with default parameters.
+     *
+     * @return View with photo parameters.
+     */
     private ModelAndView getModelAndView() {
         ModelAndView modelAndView = new ModelAndView("photo");
         modelAndView.addObject("post", true);
@@ -97,6 +158,11 @@ public class PhotoGalleryController {
         return modelAndView;
     }
 
+    /**
+     * Add default photo size to view.
+     *
+     * @param model View.
+     */
     private void addDefaultPhotoSize(final ModelAndView model) {
         model.addObject("width", DEFAULT_SIZE);
         model.addObject("height", DEFAULT_SIZE);
