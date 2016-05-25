@@ -33,10 +33,6 @@ public class PhotoRepositoryImplTest {
     @Before
     public void before() {
         photos.add(new byte[]{0, 0, 0, 0, 1});
-        photos.add(new byte[]{0, 0, 0, 1, 1});
-        photos.add(new byte[]{0, 0, 1, 1, 1});
-        photos.add(new byte[]{0, 1, 1, 1, 1});
-        photos.add(new byte[]{1, 1, 1, 1, 1});
     }
 
     /**
@@ -45,7 +41,7 @@ public class PhotoRepositoryImplTest {
     @Test
     public void testAdd() {
         photos.add(new byte[]{10, 10, 10, 10});
-        assertEquals(photos.size(), 11);
+        assertEquals(photos.size(), 4);
     }
 
     /**
@@ -53,7 +49,9 @@ public class PhotoRepositoryImplTest {
      */
     @Test
     public void testGet() {
-        assertTrue(Arrays.equals(photos.get(3), new byte[]{0, 1, 1, 1, 1}));
+        byte[] bytes = new byte[]{0, 0, 0, 0, 1};
+        photos.add(bytes);
+        assertTrue(Arrays.equals(bytes, photos.get(1)));
     }
 
     /**
@@ -61,7 +59,7 @@ public class PhotoRepositoryImplTest {
      */
     @Test
     public void testSize() {
-        assertEquals(photos.size(), 5);
+        assertEquals(photos.size(), 1);
     }
 
     /**
@@ -77,7 +75,7 @@ public class PhotoRepositoryImplTest {
      */
     @Test
     public void testGetIds() {
-        assertTrue(photos.getIds().equals(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)));
+        assertTrue(photos.getIds().equals(Arrays.asList(0, 1)));
     }
 
     /**
