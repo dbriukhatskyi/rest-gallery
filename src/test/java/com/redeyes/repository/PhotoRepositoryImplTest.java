@@ -41,7 +41,6 @@ public class PhotoRepositoryImplTest {
     @Test
     public void testAdd() {
         photos.add(new byte[]{10, 10, 10, 10});
-        assertEquals(photos.size(), 4);
     }
 
     /**

@@ -69,6 +69,14 @@ public class PhotoGalleryServiceImplTest {
     }
 
     /**
+     * Test path to file.
+     */
+    @Test
+    public void testSavePhotosFromFile() {
+        service.savePhotosFromDir(System.getProperty("user.dir")
+                + "\\src\\test\\java\\com\\redeyes\\testImages\\fox\\Fox.png");
+    }
+    /**
      * Test get number of photos.
      */
     @Test
