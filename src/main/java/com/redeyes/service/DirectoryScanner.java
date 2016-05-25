@@ -66,7 +66,7 @@ final class DirectoryScanner {
                 }
             });
         } catch (IOException e) {
-            LOG.error("Error reading directory: {}", e.getMessage());
+            LOG.error("Error reading directory: {}.\n Scanning photo stops", e.getMessage());
         }
 
         return found;

@@ -12,11 +12,10 @@ import java.util.List;
 public class PhotoRepositoryImpl implements PhotoRepository {
     private static final Logger LOG = LoggerFactory.getLogger(PhotoRepositoryImpl.class);
 
-    private List<byte[]> photos;
+    private List<byte[]> photos = new ArrayList<>();
 
     @Override
     public final void add(final byte[] photo) {
-        LOG.info("Add photo to cache.");
         photos.add(photo);
     }
 

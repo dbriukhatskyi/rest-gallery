@@ -26,14 +26,18 @@ public class PhotoGalleryServiceImpl implements PhotoGalleryService {
     public final void savePhotosFromDir(final String dirPath) {
         LOG.info("Uploading photos...");
         List<Path> files = DirectoryScanner.getFiles(dirPath);
+        if (files.isEmpty()) {
+            LOG.info("Photos not found.");
+            return;
+        }
         repository.init();
         byte[] buffer = new byte[BUF_SIZE];
-
+        LOG.info("Adds photos to cache...");
         for (Path file : files) {
             try (InputStream photo = new BufferedInputStream(Files.newInputStream(file), BUF_SIZE)) {
                 ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 
-                while(photo.available() > 0) {
+                while (photo.available() > 0) {
                     int size = photo.read(buffer);
                     byteStream.write(buffer, 0, size);
                 }
