@@ -1,6 +1,7 @@
 package com.redeyes.service;
 
 import com.redeyes.repository.PhotoRepository;
+import com.redeyes.utils.DirectoryScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,6 @@ public class PhotoGalleryServiceImpl implements PhotoGalleryService {
         }
         repository.init();
         byte[] buffer = new byte[BUF_SIZE];
-        LOG.info("Adds photos to cache...");
         for (Path file : files) {
             try (InputStream photo = new BufferedInputStream(Files.newInputStream(file), BUF_SIZE)) {
                 ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
