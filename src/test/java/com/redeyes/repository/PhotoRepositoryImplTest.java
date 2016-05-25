@@ -1,7 +1,13 @@
 package com.redeyes.repository;
 
+import com.redeyes.ResTfulPhotoGalleryApplication;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Arrays;
 
@@ -11,11 +17,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for photo cache.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(ResTfulPhotoGalleryApplication.class)
+@WebAppConfiguration
 public class PhotoRepositoryImplTest {
     /**
      * Photo storage
      */
-    private PhotoRepository photos = new PhotoRepositoryImpl();
+    @Autowired
+    private PhotoRepository photos;
 
     /**
      * Fill storage mock photos.
@@ -35,7 +45,7 @@ public class PhotoRepositoryImplTest {
     @Test
     public void testAdd() {
         photos.add(new byte[]{10, 10, 10, 10});
-        assertEquals(photos.size(), 6);
+        assertEquals(photos.size(), 11);
     }
 
     /**
@@ -67,7 +77,7 @@ public class PhotoRepositoryImplTest {
      */
     @Test
     public void testGetIds() {
-        assertTrue(photos.getIds().equals(Arrays.asList(0, 1, 2, 3, 4)));
+        assertTrue(photos.getIds().equals(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)));
     }
 
     /**
