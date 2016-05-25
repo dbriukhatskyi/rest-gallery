@@ -44,6 +44,31 @@ public class PhotoGalleryServiceImplTest {
     }
 
     /**
+     * Empty dir
+     */
+    @Test
+    public void testSavePhotosFromEmptyDir() {
+        service.savePhotosFromDir("C:\\photos");
+    }
+
+    /**
+     * Error reading from dir
+     */
+    @Test
+    public void testSavePhotosFromDirError() {
+        service.savePhotosFromDir("C:\\$Recycle.Bin\\");
+    }
+
+    /**
+     * Test fail image.
+     */
+    @Test
+    public void testSavePhotosFromDirFailImage() {
+        service.savePhotosFromDir(System.getProperty("user.dir")
+                + "\\src\\test\\java\\com\\redeyes\\testImages\\fail");
+    }
+
+    /**
      * Test get number of photos.
      */
     @Test
