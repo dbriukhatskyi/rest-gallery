@@ -48,7 +48,13 @@ public final class DirectoryScanner {
      * @return a list of full paths to the files matching the input criteria
      */
     public static List<Path> getFiles(final String directory) {
-        LOG.info("Finding *.png images...");
+        LOG.info("Searching for '{}' files in '{}'", IMG_FILE_EXT, directory);
+
+        if (directory == null) {
+            LOG.warn("String with directory to scan is null!");
+            return Collections.emptyList();
+        }
+
         Path baseDir = Paths.get(directory);
 
         if (!Files.exists(baseDir) || !Files.isDirectory(baseDir)) {
@@ -73,6 +79,8 @@ public final class DirectoryScanner {
         } catch (IOException e) {
             LOG.error("Error reading directory: {}.\n Scanning photo stops", e.getMessage());
         }
+
+        LOG.info("Found {} files in {}", found.size(), directory);
 
         return found;
     }
