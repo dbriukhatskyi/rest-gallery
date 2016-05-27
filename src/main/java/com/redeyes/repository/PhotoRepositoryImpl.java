@@ -8,55 +8,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Photo cache storage implements storage interface.
+ * A photo storage implementation using in-memory cache.
  *
- * @author Oleksandr Dres.
- * @author Dmytro Briukhatskyi.
+ * @author Oleksandr Dres
+ * @author Dmytro Briukhatskyi
  */
 @Repository
 public class PhotoRepositoryImpl implements PhotoRepository {
     /**
-     * Logger cache storage.
+     * Logger used by a storage.
      */
     private static final Logger LOG = LoggerFactory.getLogger(PhotoRepositoryImpl.class);
 
     /**
-     * Field contains photos in byte array.
+     * All stored photos in the form of byte arrays.
      */
     private List<byte[]> photos = new ArrayList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void add(final byte[] photo) {
-        LOG.info("Add photo to cache.");
+        LOG.debug("Adding new photo to cache.");
         photos.add(photo);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final byte[] get(final int id) {
-        LOG.info("Returned photo with id: {}", id);
+        LOG.debug("Returning photo with id: {}", id);
         return photos.get(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int size() {
-        LOG.info("Returned cache size.");
+        LOG.debug("Returning cache size.");
         return photos.size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void init() {
-        LOG.info("Initialize storage.");
+        LOG.debug("Initializing storage.");
         photos.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final List<Integer> getIds() {
-        LOG.info("Returned photo id's.");
+        LOG.debug("Returning a list of photo IDs.");
         int cacheSize = size();
         List<Integer> counts = new ArrayList<>(cacheSize);
+
         for (int i = 0; i < cacheSize; i++) {
             counts.add(i);
         }
+
         return counts;
     }
 }

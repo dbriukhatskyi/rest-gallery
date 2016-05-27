@@ -3,38 +3,41 @@ package com.redeyes.service;
 import java.util.List;
 
 /**
- * Service for photo gallery.
+ * A photo gallery service.
  *
- * @author Oleksandr Dres.
- * @author Dmytro Briukhatskyi.
+ * @author Oleksandr Dres
+ * @author Dmytro Briukhatskyi
  */
 public interface PhotoGalleryService {
     /**
-     * Scanning directory on the photo and adding to the cache.
+     * Scans directory for the photos and adds found photos to the storage.
      *
-     * @param dir Directory on local disk to scan for photos.
+     * @param dir
+     *        a local directory to scan for photos
      */
     void savePhotosFromDir(String dir);
 
     /**
-     * Returned photo from cache.
+     * Returns a photo with the specified ID from the storage.
      *
-     * @param id Photo id in cache.
-     * @return Photo file in byte array.
+     * @param id
+     *        ID of the photo in the storage
+     *
+     * @return a byte array representing image file contents
      */
     byte[] getPhoto(int id);
 
     /**
-     * Returned photo count in cache.
+     * Returns current count of photos in the storage.
      *
-     * @return Photo count in cache.
+     * @return count of photos in the storage
      */
     int getSize();
 
     /**
-     * Returned photo id's.
+     * Returns a list of all available in the storage photo IDs.
      *
-     * @return Photo id,s.
+     * @return a list of photo IDs
      */
     List<Integer> getIds();
 }

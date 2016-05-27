@@ -12,9 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ResTfulPhotoGalleryApplication {
     /**
-     * Entry point for application.
+     * An entry point for application.
      *
-     * @param args JVM args.
+     * @param args
+     *        command-line arguments
      */
     public static void main(final String[] args) {
         SpringApplication.run(ResTfulPhotoGalleryApplication.class, args);

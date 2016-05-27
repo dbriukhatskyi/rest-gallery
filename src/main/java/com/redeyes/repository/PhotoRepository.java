@@ -3,41 +3,46 @@ package com.redeyes.repository;
 import java.util.List;
 
 /**
- * Photo cache interface.
+ * A photo storage interface.
  *
  * @author Oleksandr Dres.
  * @author Dmytro Briukhatskyi.
  */
 public interface PhotoRepository {
     /**
-     * Add photo to cache.
+     * Adds a photo to the storage.
      *
-     * @param photo Photo file bytes.
+     * @param photo
+     *        a byte array representing image file contents
      */
     void add(byte[] photo);
 
     /**
-     * @param id Photo id.
-     * @return Photo in byte array.
+     * Returns a photo with specified ID from storage.
+     *
+     * @param id
+     *        photo ID in the cache
+     *
+     * @return a byte array representing image file contents
      */
     byte[] get(int id);
 
     /**
-     * Returned photo count in cache.
+     * Returns current count of photos in the storage.
      *
-     * @return Photo count in cache.
+     * @return count of photos in the storage
      */
     int size();
 
     /**
-     * Initialize cache storage.
+     * Initializes or cleans up the storage.
      */
     void init();
 
     /**
-     * Returned list of photo id's.
+     * Returns a list of all available in the storage photo IDs.
      *
-     * @return List of photo id's.
+     * @return a list of photo IDs
      */
     List<Integer> getIds();
 }

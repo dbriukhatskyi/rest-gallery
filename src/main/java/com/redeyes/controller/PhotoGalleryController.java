@@ -19,8 +19,8 @@ import java.io.ByteArrayInputStream;
 /**
  * Photo gallery controller.
  *
- * @author Oleksandr Dres.
- * @author Dmytro Briukhatskyi.
+ * @author Oleksandr Dres
+ * @author Dmytro Briukhatskyi
  */
 @Controller
 @RequestMapping("/photo")
@@ -30,11 +30,11 @@ public class PhotoGalleryController {
      */
     private static final Logger LOG = LoggerFactory.getLogger(PhotoGalleryController.class);
     /**
-     * Default rows for photo view.
+     * Default rows count for photo view.
      */
     private static final int DEFAULT_ROWS = 4;
     /**
-     * Default photo size.
+     * Default photo size in pixels.
      */
     private static final int DEFAULT_SIZE = 200;
 
@@ -45,9 +45,9 @@ public class PhotoGalleryController {
     private PhotoGalleryService service;
 
     /**
-     * Returned main screen with form.
+     * Returns main screen with a prompt to pick a directory.
      *
-     * @return View with form.
+     * @return View with form
      */
     @RequestMapping(method = RequestMethod.GET)
     public final ModelAndView home() {
@@ -56,10 +56,12 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Scan directory for photos, adds photos to cache and return view photo gallery.
+     * Scans directory for photos, adds photos to cache and returns a view with a photo gallery.
      *
-     * @param path Directory with photo in local disk.
-     * @return View with default photo parameters.
+     * @param path
+     *        path to a local directory with photos
+     *
+     * @return view with gallery using default photo parameters
      */
     @RequestMapping(method = RequestMethod.POST)
     public final ModelAndView post(@RequestParam final String path) {
@@ -71,9 +73,9 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo gallery with black background.
+     * Returns photo gallery with black background.
      *
-     * @return View with black background.
+     * @return view with a gallery using black background
      */
     @RequestMapping(value = "/blackbackground", method = RequestMethod.GET)
     public final ModelAndView black() {
@@ -85,9 +87,9 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo gallery with original photo size.
+     * Returns photo gallery with original photo size.
      *
-     * @return View with original photo size.
+     * @return view with a gallery using original photo size
      */
     @RequestMapping(value = "/original", method = RequestMethod.GET)
     public final ModelAndView original() {
@@ -98,10 +100,12 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo gallery with custom rows.
+     * Returns photo gallery with custom photos per row count.
      *
-     * @param row Custom rows.
-     * @return View with custom rows.
+     * @param row
+     *        photos per row count
+     *
+     * @return view with a gallery using custom photos per row count
      */
     @RequestMapping(value = "/row/{row}", method = RequestMethod.GET)
     public final ModelAndView rows(@PathVariable final int row) {
@@ -113,10 +117,14 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo gallery with custom size photo.
+     * Returns photo gallery using custom photo size.
      *
-     * @param wh Custom size YYYxZZZ.
-     * @return View with custom size photo.
+     * @param wh
+     *        (width and height) custom size in form of YYYxZZZ,
+     *        where YYY is width and ZZZ is height to use
+     *        for photos display in the gallery
+     *
+     * @return view with a gallery using custom photo size
      */
     @RequestMapping(value = "/wh/{wh:\\d{3}x\\d{3}}", method = RequestMethod.GET)
     public final ModelAndView wh(@PathVariable final String wh) {
@@ -129,10 +137,12 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo from server.
+     * Returns specified photo from server cache.
      *
-     * @param id Photo id in cache.
-     * @return PNG photo.
+     * @param id
+     *        ID of the photo to retrieve from cache
+     *
+     * @return {@code InputStreamResource} representing a PNG image
      */
     @RequestMapping(value = "/image/{id:\\d+}", method = RequestMethod.GET)
     public final ResponseEntity<InputStreamResource> image(@PathVariable final int id) {
@@ -145,9 +155,9 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Returned photo gallery view with default parameters.
+     * Returns photo gallery view with default parameters.
      *
-     * @return View with photo parameters.
+     * @return view with a gallery using default parameters
      */
     private ModelAndView getModelAndView() {
         ModelAndView modelAndView = new ModelAndView("photo");
@@ -159,9 +169,10 @@ public class PhotoGalleryController {
     }
 
     /**
-     * Add default photo size to view.
+     * Sets default photo size to view.
      *
-     * @param model View.
+     * @param model
+     *        a view to set parameters to
      */
     private void addDefaultPhotoSize(final ModelAndView model) {
         model.addObject("width", DEFAULT_SIZE);

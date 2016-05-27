@@ -77,10 +77,10 @@ public final class DirectoryScanner {
                 }
             });
         } catch (IOException e) {
-            LOG.error("Error reading directory: {}.\n Scanning photo stops", e.getMessage());
+            LOG.error("Error reading directory: '{}'.\n Scanning photo stops", e.getMessage());
         }
 
-        LOG.info("Found {} files in {}", found.size(), directory);
+        LOG.info("Found {} files in '{}'", found.size(), directory);
 
         return found;
     }
