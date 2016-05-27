@@ -34,6 +34,9 @@ public class PhotoGalleryServiceImplTest {
     @Autowired
     private PhotoGalleryService service;
 
+    /**
+     * Before each test.
+     */
     @Before
     public void before() {
         service.savePhotosFromDir(IMAGE_URL + "\\cat");
