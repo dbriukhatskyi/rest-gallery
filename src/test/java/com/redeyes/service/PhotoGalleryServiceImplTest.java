@@ -22,6 +22,12 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 public class PhotoGalleryServiceImplTest {
 
+
+    /**
+     * Path to photo.
+     */
+    private static final String IMAGE_URL = System.getProperty("user.dir")
+            + "\\src\\test\\resources\\images";
     /**
      * Photo service.
      */
@@ -30,8 +36,7 @@ public class PhotoGalleryServiceImplTest {
 
     @Before
     public void before() {
-        service.savePhotosFromDir(System.getProperty("user.dir")
-                + "\\src\\test\\java\\com\\redeyes\\testImages\\cat");
+        service.savePhotosFromDir(IMAGE_URL + "\\cat");
     }
 
     /**
@@ -39,8 +44,7 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testSavePhotosFromDir() {
-        service.savePhotosFromDir(System.getProperty("user.dir")
-                + "\\src\\test\\java\\com\\redeyes\\testImages\\fox");
+        service.savePhotosFromDir(IMAGE_URL + "\\fox");
     }
 
     /**
@@ -48,7 +52,7 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testSavePhotosFromEmptyDir() {
-        service.savePhotosFromDir("C:\\photos");
+        service.savePhotosFromDir(IMAGE_URL + "\\empty");
     }
 
     /**
@@ -56,7 +60,7 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testSavePhotosFromDirError() {
-        service.savePhotosFromDir("C:\\$Recycle.Bin\\");
+        service.savePhotosFromDir(IMAGE_URL + "\\errorDir");
     }
 
     /**
@@ -64,8 +68,7 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testSavePhotosFromDirFailImage() {
-        service.savePhotosFromDir(System.getProperty("user.dir")
-                + "\\src\\test\\java\\com\\redeyes\\testImages\\fail");
+        service.savePhotosFromDir(IMAGE_URL + "\\fail");
     }
 
     /**
@@ -73,9 +76,9 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testSavePhotosFromFile() {
-        service.savePhotosFromDir(System.getProperty("user.dir")
-                + "\\src\\test\\java\\com\\redeyes\\testImages\\fox\\Fox.png");
+        service.savePhotosFromDir(IMAGE_URL + "\\fox\\Fox.png");
     }
+
     /**
      * Test get number of photos.
      */
