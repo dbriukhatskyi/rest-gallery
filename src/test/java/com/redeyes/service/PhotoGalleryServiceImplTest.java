@@ -9,7 +9,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -92,7 +92,7 @@ public class PhotoGalleryServiceImplTest {
      */
     @Test
     public void testGetIds() {
-        assertTrue(service.getIds().equals(Arrays.asList(0)));
+        assertTrue(service.getIds().equals(Collections.singletonList(0)));
     }
 
     /**
