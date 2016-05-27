@@ -46,7 +46,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
     @Override
     public final void init() {
         LOG.info("Initialize storage.");
-        photos = new ArrayList<>();
+        photos.clear();
     }
 
     @Override
