@@ -52,8 +52,9 @@ public class PhotoRepositoryImpl implements PhotoRepository {
     @Override
     public final List<Integer> getIds() {
         LOG.info("Returned photo id's.");
-        List<Integer> counts = new ArrayList<>(photos.size());
-        for (int i = 0; i < photos.size(); i++) {
+        int cacheSize = size();
+        List<Integer> counts = new ArrayList<>(cacheSize);
+        for (int i = 0; i < cacheSize; i++) {
             counts.add(i);
         }
         return counts;

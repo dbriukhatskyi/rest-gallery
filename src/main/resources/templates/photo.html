@@ -20,16 +20,14 @@
             margin: 5px;
         }
     </style>
-</head>
-<body class="blackback">
-<div th:if="${black}">
-    <style type="text/css">
+    <style th:if="${black}">
         .blackback {
             background-color: black;
             color: white;
         }
     </style>
-</div>
+</head>
+<body class="blackback">
 <div th:if="${main}">
     <form id="form" action="/photo" method="post" class="form-horizontal">
         <table>
