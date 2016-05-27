@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PhotoGalleryControllerTest {
 
     private static String pathToCatImage = System.getProperty("user.dir")
-            + "\\src\\test\\java\\com\\redeyes\\testImages\\cat";
+            + "\\src\\test\\resources\\images\\cat";
 
     private static String URL = "/photo";
 
